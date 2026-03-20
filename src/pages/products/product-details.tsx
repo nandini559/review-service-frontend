@@ -1,0 +1,29 @@
+import React from "react";
+
+const Productdetails = () => {
+  return (<div>
+    <div className="border rounded-lg  shadow-sm p-2 flex">
+      <div className="w-1/2">
+        <img src="/assets/necklace.png" alt="img" className="bg-slate-50 "></img>
+      </div>
+      <div>
+        <p className="mt-2 font-semibold">22,32,336 /-</p>
+        <p className="text-green-600 text-sm font-semibold">
+          10% off on making charges
+        </p>
+        <p className="text-sm text-gray-500">Yemelary Wings Diamond</p>
+        <p>
+          Gold jewellery is a timeless, durable, and highly prized luxury metal known for its luster, malleability, and ability to hold value over centuries. Ranging from 10k to 24k purity, it is often alloyed with other metals for strength, with 14k and 18k being popular for daily wear while 22k is preferred for traditional, intricate pieces.{" "}
+        </p>
+        <button className="bg-emerald-600 text-white px-3 py-2 rounded text-sm mr-5">
+          View Similar
+        </button>
+        <button className="bg-emerald-600 text-white px-3 py-2 rounded text-sm">
+          Buy Now
+        </button>
+      </div>
+    </div>
+  </div>);
+};
+
+export default Productdetails;
