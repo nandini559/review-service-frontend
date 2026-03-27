@@ -1,54 +1,50 @@
-import React from "react";
 import {useNavigate} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+
+// ✅ type
+type Product = {
+  id: number;
+  title: string;
+  image: string;
+  description: string;
+  price: number;
+};
 
 const Productlist = () => {
   const navigate = useNavigate();
 
-  const goToAbout = () => {
-    navigate("/product-details");
-  };
+  // ✅ typed state
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3002/products"). // ✅ correct URL
+    then((res) => res.json()).then((data) => {
+      console.log(data); // 👀 check this
+      setProducts(data);
+    }).catch((err) => console.error(err));
+  }, []);
 
   return (<div>
-    <div>
-      <div className="border rounded-lg  shadow-sm p-2 flex">
+    {/* ✅ LOOP HERE */}
+    {
+      products.map((product) => (<div key={product.id} className="border rounded-lg shadow-sm p-2 flex mb-4">
         <div className="mr-4">
-          <img src="/assets/necklace.png" alt="black" className=" bg-amber-100"></img>
+          <img src={product.image || "/assets/fallback.png"} alt={product.title} className="bg-amber-100 size-56 object-cover rounded"/>{" "}
         </div>
-        <div>
-          <p className="mt-2 font-semibold">22,32,336 /-</p>
-          <p className="text-green-600 text-sm font-semibold">
-            10% off on making charges
-          </p>
-          <p className="text-sm text-gray-500">Yemelary Wings Diamond</p>
-          <p>
-            Gold jewellery is a timeless, durable, and highly prized luxury metal known for its luster, malleability, and ability to hold value over centuries
-          </p>
-          <button className="text-blue-500 mr-5" onClick={goToAbout}>
-            know more
-          </button>
-        </div>
-      </div>
 
-      <div className="border rounded-lg  shadow-sm p-2 flex">
-        <div className="mr-4">
-          <img src="/assets/jewel2.jpg
-          " alt="black" className=" bg-amber-100 size-56"></img>
-        </div>
         <div>
-          <p className="mt-2 font-semibold">22,32,336 /-</p>
-          <p className="text-green-600 text-sm font-semibold">
-            10% off on making charges
-          </p>
-          <p className="text-sm text-gray-500">Yemelary Wings Diamond</p>
-          <p>
-            Gold jewellery is a timeless, durable, and highly prized luxury metal known for its luster, malleability, and ability to hold value over centuries
-          </p>
-          <button className="text-blue-500 mr-5" onClick={goToAbout}>
+          <p className="mt-2 font-semibold">₹ {product.price}</p>
+
+          <p className="text-sm text-gray-500">{product.title}</p>
+
+          <p>{product.description}</p>
+
+          <button className="text-blue-500 mr-5" onClick={() => navigate(`/product-details/${product.id}`)}>
             know more
           </button>
         </div>
-      </div>
-    </div>
+      </div>))
+    }
   </div>);
 };
 

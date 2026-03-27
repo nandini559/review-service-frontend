@@ -1,5 +1,3 @@
-import React from "react";
-
 const Productdetails = () => {
   return (<div>
     <div className="border rounded-lg  shadow-sm p-2 flex">
